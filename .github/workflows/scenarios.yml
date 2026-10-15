@@ -1,0 +1,32 @@
+# Play every scenario the way a learner would: run its setup, click every
+# command (solutions included) and require each step's check to pass. A
+# scenario that breaks here would break for the next person who opens it.
+name: Scenarios
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "23 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  play:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: [attack-vulnerable-python]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Shell scripts are clean
+        run: shellcheck "${{ matrix.scenario }}"/*.sh "${{ matrix.scenario }}"/step*/*.sh
+      # Killercoda runs scenarios as root with /root as the home directory.
+      - name: Play the scenario
+        run: sudo python3 test/run-scenario.py "${{ matrix.scenario }}"

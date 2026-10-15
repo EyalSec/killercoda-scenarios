@@ -1,0 +1,26 @@
+{
+  "title": "Attack a vulnerable Python app, and notice what nobody saw",
+  "description": "Run a deliberately vulnerable Flask app, exploit SQL injection, command injection and path traversal, then look at what the app recorded about it.",
+  "difficulty": "beginner",
+  "time": "15 minutes",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "background": "background.sh",
+      "foreground": "foreground.sh"
+    },
+    "steps": [
+      { "title": "Meet the app", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "SQL injection", "text": "step2/text.md", "verify": "step2/verify.sh" },
+      { "title": "Command injection", "text": "step3/text.md", "verify": "step3/verify.sh" },
+      { "title": "Path traversal", "text": "step4/text.md", "verify": "step4/verify.sh" },
+      { "title": "What the app recorded", "text": "step5/text.md", "verify": "step5/verify.sh" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
